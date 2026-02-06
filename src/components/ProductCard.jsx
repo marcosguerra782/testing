@@ -8,10 +8,11 @@ export function ProductCard({ product, isInCart, onAddToCart, onRemoveFromCart }
                 {isInCart ? (
                     <button
                         className="add-to-cart-btn"
+                        title="Ir al carrito para ver detalles"
                         style={{ backgroundColor: '#333', color: '#fff' }}
                         onClick={() => onRemoveFromCart(product.id)}
                     >
-                        Quitar de la Bolsa
+                        ✓ En el Carrito
                     </button>
                 ) : (
                     <button

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocat
 import { LoginPage } from './pages/LoginPage';
 import { ConfirmEmailPage } from './pages/ConfirmEmailPage';
 import { HomePage } from './pages/HomePage';
+import { CartPage } from './pages/CartPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { supabase } from './supabaseClient';
 
@@ -116,6 +117,22 @@ function AppContent() {
               setCart={setCart}
               onLogout={handleLogout}
               searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          </ProtectedRoute>
+        } 
+      />
+
+      {/* Ruta Protegida - Carrito - Solo accesible con autenticación */}
+      <Route 
+        path="/cart" 
+        element={
+          <ProtectedRoute user={user}>
+            <CartPage 
+              user={user}
+              cart={cart}
+              setCart={setCart}
+              onLogout={handleLogout}
               setSearchQuery={setSearchQuery}
             />
           </ProtectedRoute>

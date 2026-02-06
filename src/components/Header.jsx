@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Header({ cartCount, onSearch, onCategoryClick, onLogout, user }) {
+    const navigate = useNavigate();
+    
     return (
         <header className="site-header">
             <div className="container header-content">
@@ -26,9 +29,21 @@ export function Header({ cartCount, onSearch, onCategoryClick, onLogout, user })
 
                     {user ? (
                         <>
-                            <a href="#" className="icon-link">
+                            <button
+                                className="icon-link"
+                                onClick={() => navigate('/cart')}
+                                style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    fontSize: '1rem',
+                                    color: 'inherit',
+                                    padding: 0,
+                                    marginRight: '15px'
+                                }}
+                            >
                                 <i className="fas fa-shopping-bag"></i> Carrito ({cartCount})
-                            </a>
+                            </button>
                             <button onClick={onLogout} className="btn btn-outline" style={{ padding: '5px 10px', fontSize: '0.8rem' }}>
                                 Cerrar Sesión
                             </button>
