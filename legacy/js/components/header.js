@@ -11,16 +11,16 @@ window.LuxeApp.createHeader = function (isLoggedIn = false) {
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Collections</a></li>
-                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Nuevas Llegadas</a></li>
+                    <li><a href="#">Colecciones</a></li>
+                    <li><a href="#">Accesorios</a></li>
                 </ul>
             </nav>
             <div class="user-actions">
-                <a href="#" class="icon-link"><i class="fas fa-search"></i> Search</a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i> Buscar</a>
                 ${isLoggedIn ?
-            `<a href="#" class="icon-link"><i class="fas fa-shopping-bag"></i> Cart (0)</a>` :
-            `<a href="index.html" class="btn btn-primary">Login</a>`
+            `<a href="#" class="icon-link"><i class="fas fa-shopping-bag"></i> Carrito (0)</a>` :
+            `<a href="index.html" class="btn btn-primary">Iniciar Sesión</a>`
         }
             </div>
         </div>

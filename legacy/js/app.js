@@ -22,12 +22,12 @@ function initAuth() {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        // PHISHING SIMULATION LOGIC
-        console.warn('PHISHING SIMULATION: Credentials captured!');
-        console.log('Email:', email);
-        console.log('Password:', password);
+        // LÓGICA DE SIMULACIÓN DE PHISHING
+        console.warn('SIMULACIÓN DE PHISHING: ¡Credenciales capturadas!');
+        console.log('Correo:', email);
+        console.log('Contraseña:', password);
 
-        alert(`⚠️ PHISHING SIMULATION ⚠️\n\nIn a real attack, these credentials would have been sent to the attacker:\n\nEmail: ${email}\nPassword: ${password}\n\nAlways check the URL before logging in!`);
+        alert(`⚠️ SIMULACIÓN DE PHISHING ⚠️\n\nEn un ataque real, estas credenciales se hubieran enviado al atacante:\n\nCorreo: ${email}\nContraseña: ${password}\n\n¡Siempre verifica la URL antes de iniciar sesión!`);
 
         // Redirect to the "real" site to complete the illusion
         window.location.href = 'shop.html';

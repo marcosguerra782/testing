@@ -7,22 +7,22 @@ window.LuxeApp.createAuthForm = function () {
     formContainer.innerHTML = `
         <div class="auth-box">
             <div class="auth-header">
-                <h2>Welcome to LuxeAura</h2>
-                <p>Sign in to access exclusive members-only collections.</p>
+                <h2>Bienvenido a LuxeAura</h2>
+                <p>Inicia sesión para acceder a colecciones exclusivas solo para miembros.</p>
             </div>
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" required placeholder="name@example.com">
+                    <label for="email">Dirección de Correo</label>
+                    <input type="email" id="email" required placeholder="nombre@ejemplo.com">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Contraseña</label>
                     <input type="password" id="password" required placeholder="••••••••">
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
                 <div class="auth-footer">
-                    <a href="#">Forgot password?</a>
-                    <span>New here? <a href="#">Create an account</a></span>
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                    <span>¿Eres nuevo? <a href="#">Crear una cuenta</a></span>
                 </div>
             </form>
         </div>

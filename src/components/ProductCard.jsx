@@ -11,14 +11,14 @@ export function ProductCard({ product, isInCart, onAddToCart, onRemoveFromCart }
                         style={{ backgroundColor: '#333', color: '#fff' }}
                         onClick={() => onRemoveFromCart(product.id)}
                     >
-                        Remove from Bag
+                        Quitar de la Bolsa
                     </button>
                 ) : (
                     <button
                         className="add-to-cart-btn"
                         onClick={() => onAddToCart(product)}
                     >
-                        Add to Bag
+                        Agregar a la Bolsa
                     </button>
                 )}
             </div>

@@ -7,7 +7,7 @@ window.LuxeApp.createProductCard = function (product) {
     card.innerHTML = `
         <div class="product-image">
             <img src="${product.image}" alt="${product.name}">
-            <button class="add-to-cart-btn">Add to Bag</button>
+            <button class="add-to-cart-btn">Agregar a la Bolsa</button>
         </div>
         <div class="product-info">
             <span class="product-category">${product.category}</span>

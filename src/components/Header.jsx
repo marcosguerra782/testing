@@ -9,9 +9,9 @@ export function Header({ cartCount, onSearch, onCategoryClick, onLogout, user })
                 </div>
                 <nav>
                     <ul>
-                        <li><a onClick={() => onCategoryClick('New Arrivals')}>New Arrivals</a></li>
-                        <li><a onClick={() => onCategoryClick('Collections')}>Collections</a></li>
-                        <li><a onClick={() => onCategoryClick('Accessories')}>Accessories</a></li>
+                        <li><a onClick={() => onCategoryClick('Nuevas Llegadas')}>Nuevas Llegadas</a></li>
+                        <li><a onClick={() => onCategoryClick('Colecciones')}>Colecciones</a></li>
+                        <li><a onClick={() => onCategoryClick('Accesorios')}>Accesorios</a></li>
                     </ul>
                 </nav>
                 <div className="user-actions">
@@ -19,7 +19,7 @@ export function Header({ cartCount, onSearch, onCategoryClick, onLogout, user })
                         <i className="fas fa-search"></i>
                         <input
                             type="text"
-                            placeholder="Search..."
+                            placeholder="Buscar..."
                             onChange={(e) => onSearch(e.target.value)}
                         />
                     </div>
@@ -27,14 +27,14 @@ export function Header({ cartCount, onSearch, onCategoryClick, onLogout, user })
                     {user ? (
                         <>
                             <a href="#" className="icon-link">
-                                <i className="fas fa-shopping-bag"></i> Cart ({cartCount})
+                                <i className="fas fa-shopping-bag"></i> Carrito ({cartCount})
                             </a>
                             <button onClick={onLogout} className="btn btn-outline" style={{ padding: '5px 10px', fontSize: '0.8rem' }}>
-                                Logout
+                                Cerrar Sesión
                             </button>
                         </>
                     ) : (
-                        <button className="btn btn-primary">Login</button>
+                        <button className="btn btn-primary">Iniciar Sesión</button>
                     )}
                 </div>
             </div>
