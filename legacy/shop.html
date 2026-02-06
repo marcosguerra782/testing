@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeAura Paris | New Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/shop.css">
+</head>
+
+<body>
+    <div id="header-container"></div>
+
+    <main>
+        <div class="shop-hero">
+            <div class="container">
+                <h1>The Autumn Collection</h1>
+                <p>Discover the new standard of luxury.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="product-grid" class="product-grid">
+                <!-- Products will be injected here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Load scripts sequentially -->
+    <script src="js/data/products.js"></script>
+    <script src="js/components/header.js"></script>
+    <script src="js/components/productCard.js"></script>
+    <script src="js/components/authForm.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

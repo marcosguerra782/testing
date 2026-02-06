@@ -1,0 +1,32 @@
+import React from 'react';
+
+export function ProductCard({ product, isInCart, onAddToCart, onRemoveFromCart }) {
+    return (
+        <div className="product-card">
+            <div className="product-image">
+                <img src={product.image} alt={product.name} />
+                {isInCart ? (
+                    <button
+                        className="add-to-cart-btn"
+                        style={{ backgroundColor: '#333', color: '#fff' }}
+                        onClick={() => onRemoveFromCart(product.id)}
+                    >
+                        Remove from Bag
+                    </button>
+                ) : (
+                    <button
+                        className="add-to-cart-btn"
+                        onClick={() => onAddToCart(product)}
+                    >
+                        Add to Bag
+                    </button>
+                )}
+            </div>
+            <div className="product-info">
+                <span className="product-category">{product.category}</span>
+                <h3 className="product-title">{product.name}</h3>
+                <span className="product-price">${product.price.toFixed(2)}</span>
+            </div>
+        </div>
+    );
+}
