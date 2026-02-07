@@ -92,3 +92,18 @@
     color: var(--color-primary);
     font-weight: 600;
 }
+
+@media (max-width: 768px) {
+    .auth-box {
+        padding: 24px;
+    }
+    .auth-container {
+        max-width: 360px;
+        padding: 12px;
+    }
+    .auth-footer {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+    }
+}

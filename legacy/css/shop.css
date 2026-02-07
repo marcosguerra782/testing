@@ -126,3 +126,19 @@
     color: var(--color-accent);
     font-weight: 700;
 }
+
+@media (max-width: 768px) {
+    .shop-hero {
+        padding: 28px 0;
+    }
+    .shop-hero h1 {
+        font-size: 1.75rem;
+    }
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+    }
+    .logo img {
+        height: 32px;
+    }
+}

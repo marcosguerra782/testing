@@ -339,3 +339,61 @@ button {
   color: var(--color-accent);
   font-weight: 700;
 }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 12px;
+  }
+  .shop-hero {
+    padding: 40px 0;
+  }
+  .shop-hero h1 {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .site-header nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .logo img {
+    height: 32px;
+  }
+  .search-bar {
+    display: none;
+  }
+  .shop-hero {
+    padding: 28px 0;
+  }
+  .shop-hero h1 {
+    font-size: 1.75rem;
+  }
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .product-image img {
+    padding: 12px;
+  }
+  .auth-box {
+    padding: 24px;
+  }
+  .auth-container {
+    max-width: 360px;
+    padding: 12px;
+  }
+  .auth-footer {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+}
